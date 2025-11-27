@@ -40,10 +40,36 @@ export class DataService {
       );
   }
 
+  put<T>(data: any) {
+    return this.http.put<T>(this._baseUri, JSON.stringify(data), { headers: this.authHeaders })
+      .pipe(
+        catchError(error => {
+          if (error.status === 401) {
+            localStorage.removeItem('authToken');
+            this.router.navigate(['/login']);
+          }
+          return throwError(() => error);
+        })
+      );
+  }
+
+  delete<T = void>() {
+    return this.http.delete<T>(this._baseUri, { headers: this.authHeaders })
+      .pipe(
+        catchError(error => {
+          if (error.status === 401) {
+            localStorage.removeItem('authToken');
+            this.router.navigate(['/login']);
+          }
+          return throwError(() => error);
+        })
+      );
+  }
+
   // Simple login post without token handling
   loginPost<T>(data: any) {
-    return this.http.post<T>(this._baseUri, JSON.stringify(data), { 
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }) 
+    return this.http.post<T>(this._baseUri, JSON.stringify(data), {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
 

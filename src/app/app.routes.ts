@@ -9,10 +9,10 @@ export const routes: Routes = [
             {
                 path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
             },
-            // {
-            //     path: 'books', loadComponent: () => import('./features/orders/list/order-list.component').then((m) => m.OrderListComponent),
-            //     children: [],
-            // },
+            {
+                path: 'books', loadComponent: () => import('./features/books/list/books-list/books-list.component').then((m) => m.BooksListComponent),
+                children: [],
+            },
             { path: '', redirectTo: '/login', pathMatch: 'full' },
         ]
     },

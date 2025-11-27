@@ -1,0 +1,133 @@
+<div class="content-screen">
+    <div class="row aligned-row">
+        <div class="col">
+            <h4 class="mb-0">Manage Books</h4>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" (click)="onAddBookClicked()">
+                <i class="fa-solid fa-plus"></i> Add New
+            </button>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table table-hover has-action">
+            <thead>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th class="text-center">Total Copies</th>
+                    <th class="text-center">Available Copies</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(i of dataList(); track i; let idx = $index){
+                <tr>
+                    <td>#{{idx + 1}}</td>
+                    <td>{{i.title}}</td>
+                    <td>{{i.author}}</td>
+                    <td>{{i.isbn}}</td>
+                    <td class="text-center">{{i.totalCopies}}</td>
+                    <td class="text-center">{{i.availableCopies}}</td>
+                    <td>
+                        <span class="badge" [class.text-bg-danger]="i.availableCopies < 1"
+                            [class.text-bg-success]="i.availableCopies >= 1">
+                            @if(i.availableCopies < 1){ Not Available }@else{ Available } </span>
+                    </td>
+                    <td>
+                        <div class="btns-wrapper">
+                            <button class="btn btn-sm btn-outline-primary" (click)="onEdit(i)">
+                                <i class="fa-solid fa-pencil"></i>Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" (click)="onView(i)">
+                                <i class="fa-solid fa-eye"></i> View
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="onDelete(i.id)">
+                                <i class="fa-regular fa-trash-can"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="addEditBookModal" tabindex="-1" aria-labelledby="addEditBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addEditBookModalLabel">{{bookForm.get('id')?.value ? 'Update Book' :
+                    'Add Book'}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="bookForm" novalidate class="needs-validation">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" id="title" class="form-control" formControlName="title"
+                            [class.is-invalid]="title?.invalid && title?.touched">
+                        @if (title?.touched && title?.errors?.['required']) {
+                        <div class="invalid-feedback">Title is required.</div>
+                        }
+                        @if (title?.touched && title?.errors?.['minlength']) {
+                        <div class="invalid-feedback">Title must be at least 3 characters.</div>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" id="author" class="form-control" formControlName="author"
+                            [class.is-invalid]="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+                        @if (bookForm.get('author')?.touched && bookForm.get('author')?.errors?.['required']) {
+                        <div class="invalid-feedback">Author is required.</div>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" id="isbn" class="form-control" formControlName="isbn"
+                            [class.is-invalid]="isbn?.invalid && isbn?.touched">
+                        @if (isbn?.touched && isbn?.errors?.['required']) {
+                        <div class="invalid-feedback">ISBN is required.</div>
+                        }
+                        @if (isbn?.touched && isbn?.errors?.['pattern']) {
+                        <div class="invalid-feedback">Enter valid ISBN (10 or 13 digits).</div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="totalCopies" class="form-label">Total Copies</label>
+                            <input type="number" id="totalCopies" class="form-control" formControlName="totalCopies"
+                                [class.is-invalid]="bookForm.get('totalCopies')?.invalid && bookForm.get('totalCopies')?.touched"
+                                min="0">
+                            @if (bookForm.get('totalCopies')?.touched &&
+                            bookForm.get('totalCopies')?.errors?.['required']) {
+                            <div class="invalid-feedback">Total copies required.</div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    @if(bookForm.get('id')?.value){
+                    <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid"
+                        (click)="onUpdateBook()">
+                        Update Book
+                    </button>
+                    }@else {
+                    <button type="submit" class="btn btn-primary" [disabled]="bookForm.invalid" (click)="onAddBook()">
+                        Add Book
+                    </button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

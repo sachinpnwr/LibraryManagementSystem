@@ -88,7 +88,7 @@ export class SideMenuComponent {
           "id": 0,
           "title": "Books",
           "icon": "fa-solid fa-book",
-          "pageUrl": "/order-requests",
+          "pageUrl": "/books",
           "isSelected": false,
           "items": []
         },
@@ -116,7 +116,7 @@ export class SideMenuComponent {
           "id": 0,
           "title": "Books",
           "icon": "fa-solid fa-book",
-          "pageUrl": "/order-requests",
+          "pageUrl": "/books",
           "isSelected": false,
           "items": []
         },
