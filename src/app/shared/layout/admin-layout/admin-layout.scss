@@ -27,6 +27,9 @@ nav.navbar {
     height: 100%;
     overflow: auto;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 
     &:has(.side-form){
         overflow: hidden;
