@@ -1,0 +1,45 @@
+<div class="h-100 overflow-auto bg-primary-subtle">
+    <div class="container h-100 py-5 d-flex align-items-center justify-content-center">
+        <div class="row w-100 justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow login-card">
+                    <div class="card-body p-5">
+                        <h3 class="card-title text-center mb-4">Library Management</h3>
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="needs-validation">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" class="form-control" formControlName="email"
+                                    [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                                @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']) {
+                                <div class="invalid-feedback">
+                                    Email is required.
+                                </div>
+                                }
+                                @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
+                                <div class="invalid-feedback">
+                                    Enter a valid email.
+                                </div>
+                                }
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" class="form-control" formControlName="password"
+                                    [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                                <div class="invalid-feedback">
+                                    Password is required.
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mt-5" [disabled]="loginForm.invalid">
+                                Login
+                            </button>
+                            <p class="mb-0 text-center mt-3">Dont have an account? <a href="/register">Sign Up</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

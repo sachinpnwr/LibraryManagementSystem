@@ -1,1 +1,250 @@
-/* You can add global styles to this file, and also import other style files */
+:root,
+[data-bs-theme=light] {
+    --bs-primary: #07749c;
+    --bs-primary-rgb: 7, 116, 156;
+    --bs-warning: #AA710A;
+    --bs-warning-rgb: 170, 113, 10;
+    --bs-secondary: #898989;
+    --bs-secondary-rgb: 137, 137, 137;
+    --bs-success: #249000;
+    --bs-success-rgb: 36, 144, 0;
+    --bs-danger-rgb: 170, 0, 0;
+    --bs-primary-bg-subtle: #e6f1f5;
+    --bs-warning-bg-subtle: #FFEECF;
+    --bs-success-bg-subtle: #D7F7CC;
+    --bs-secondary-bg-subtle: #e7e7e7;
+    --bs-danger-bg-subtle: #FAE0E0;
+    --bs-border-color: #d0d0d0;
+    --primary-50: #e6f1f5;
+    --primary-50-rgb: 230, 241, 245;
+    --primary-100: #b2d4e0;
+    --primary-100-rgb: 178, 212, 224;
+    --primary-200: #8dbdf1;
+    --primary-300: #59a2bd;
+    --primary-400: #3990b0;
+    --primary-500: #07749c;
+    --primary-600: #066a8e;
+    --primary-700: #05526f;
+    --primary-800: #044056;
+    --primary-900: #033142;
+    --gray-50: #f5f5f5;
+    --gray-500-rgb: 245, 245, 245;
+    --gray-100: #fdfdfd;
+    --gray-200: #fbfbfb;
+    --gray-300: #f9f9f9;
+    --gray-400: #f7f7f7;
+    --gray-500: #f5f5f5;
+    --gray-600: #cbcbcb;
+    --gray-700: #a2a2a2;
+    --gray-800: #7a7a7a;
+    --gray-900: #515151;
+    --gray-1000: #313131;
+    --black-100: #d0d0d0;
+    --black-100-rgb: 208, 208, 208;
+    --black-200: #b0b0b0;
+    --black-300: #898989;
+    --black-400: #626262;
+    --black-500: #3a3a3a;
+    --black-600: #101010;
+    --black-700: #0d0d0d;
+    --black-800: #0a0a0a;
+    --black-900: #060606;
+    --black-1000: #040404;
+    --danger-50: #FFCCCC;
+    --danger-50-rgb: 255, 204, 204;
+    --danger-100: #FFAAAA;
+    --danger-200: #FF8080;
+    --danger-300: #FF5555;
+    --danger-400: #FF2A2A;
+    --danger-500: #D50000;
+    --danger-600: #AA0000;
+    --danger-700: #800000;
+    --danger-800: #550000;
+    --danger-900: #330000;
+    --bs-link-color: #07749c;
+    --bs-link-color-rgb: 7, 116, 156;
+    --bs-link-hover-color: #05526f;
+    --bs-link-hover-color-rgb: 5, 82, 111;
+    --bs-table-header-bg: #E6F1F5;
+    --bs-table-border-color: #d0d0d0;
+    --right-panel-width: 300px;
+    --bs-border-radius: 0.5rem;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100dvh;
+    overflow: auto;
+    font-weight: 500;
+}
+
+.form-label{
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.content-screen{
+    padding: 1rem;
+    overflow: auto;
+}
+
+.table-wrapper{
+    overflow: auto;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+// btns styling
+
+.btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.22em;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease-in-out;
+
+    .spinner-border {
+        --bs-spinner-width: 1rem;
+        --bs-spinner-height: 1rem;
+    }
+
+    img,
+    svg {
+        height: 1.125rem;
+        width: 1.125rem;
+    }
+}
+
+.btn-sm {
+    padding: 0.375rem 0.75rem;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+
+    img,
+    svg {
+        height: 0.875rem;
+        width: 0.875rem;
+    }
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--primary-500);
+    --bs-btn-border-color: var(--primary-500);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #066a8e;
+    --bs-btn-hover-border-color: #066a8e;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #066a8e;
+    --bs-btn-active-border-color: #066a8e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--primary-500);
+    --bs-btn-disabled-border-color: var(--primary-500);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--primary-500);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--primary-500);
+    --bs-btn-hover-color: var(--primary-500);
+    --bs-btn-hover-bg: #E6F1F5;
+    --bs-btn-hover-border-color: #066a8e;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: var(--primary-500);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: #066a8e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--primary-500);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--primary-500);
+}
+
+.btn-danger {
+    --bs-btn-color: var(--danger-700);
+    --bs-btn-bg: rgba(var(--danger-50-rgb), 0.5);
+    --bs-btn-border-color: var(--danger-700);
+    --bs-btn-hover-color: var(--danger-700);
+    --bs-btn-hover-bg: rgba(var(--danger-50-rgb), 1);
+    --bs-btn-hover-border-color: var(--danger-700);
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: var(--danger-700);
+    --bs-btn-active-bg: rgba(var(--danger-50-rgb), 0.5);
+    --bs-btn-active-border-color: var(--danger-700);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--danger-700);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--danger-700);
+}
+
+.action-btn {
+    border-radius: 50%;
+    background-color: var(--gray-50);
+    aspect-ratio: 1;
+    padding: 0.375rem;
+    border: none !important;
+    color: var(--black-300);
+    transition: all 0.3s ease-in-out;
+
+    &.action-btn-primary {
+        background-color: var(--primary-50);
+        color: var(--bs-primary);
+
+        &:not(:disabled):hover {
+            background-color: var(--primary-100);
+        }
+    }
+
+    & .spinner-border {
+        --bs-spinner-width: 1rem;
+        --bs-spinner-height: 1rem;
+        --bs-spinner-border-width: 0.125rem;
+    }
+
+    svg,
+    img {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    &:not(:disabled):hover {
+        background-color: var(--black-100);
+    }
+}
+
+.btn-sq-sm {
+    padding: 0.25rem;
+    width: 1.75rem;
+    aspect-ratio: 1;
+}
+
+.discard-items-btn {
+    color: var(--danger-600) !important;
+    border: 1px solid var(--danger-600) !important;
+}
+
+.btn-count {
+    padding: 0.125rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 1.25rem;
+    min-height: 1.25rem;
+    aspect-ratio: 1;
+    display: inline-flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(var(--black-100-rgb), 0.5);
+}

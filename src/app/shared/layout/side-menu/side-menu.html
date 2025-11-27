@@ -1,0 +1,42 @@
+<div class="side-menu py-3" (click)="$event.stopPropagation();">
+    <ul class="list-unstyled mb-0">
+        @for(i of menuList(); track i.title){
+            @if(i.items && i.items.length > 0 ){
+                <li class="nav-item">
+                    <a href="javascript:;" class="nav-link" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' + i.title" [attr.aria-controls]="i.title" [aria-expanded]="hasSelected(i.items)">
+                        <span class="icon">
+                            <i class="fa-solid fa-link"></i>
+                        </span> <span class="title">{{i.title}}</span>
+                       @if(i.count){<span class="count-tag">{{i.count}}</span>}
+                       <i class="fa-solid fa-chevron-down down-arrow fs-12"></i>
+                    </a>
+                    <div class="collapse" [class.show]="hasSelected(i.items)" [id]="i.title">
+                        <ul class="list-unstyled mb-0 sub-list">
+                            @for(item of i.items; track item){
+                                <li class="nav-item" [ngClass]="{'active' : item.isSelected}">
+                                    <a [href]="item.pageUrl" (click)="IsTabOrMobile() && autoCollapseSidemenu()" class="nav-link">
+                                         <span class="icon">
+                                            <i class="fa-solid fa-link"></i>
+                                         </span>
+                                        <span class="title">{{item.title}}</span>
+                                        @if(item.count){<span class="count-tag">{{item.count}}</span>}
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+            }@else {
+                <li class="nav-item" [ngClass]="{'active' : i.isSelected}">
+                    <a [routerLink]="i.pageUrl" (click)="IsTabOrMobile() && autoCollapseSidemenu()" class="nav-link">
+                        <span class="icon">
+                            <i [ngClass]="i.icon"></i>
+                        </span>
+                        <span class="title">{{i.title}}</span>
+                        @if(i.count){<span class="count-tag">{{i.count}}</span>}
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>

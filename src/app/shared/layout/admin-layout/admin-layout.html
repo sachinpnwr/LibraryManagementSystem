@@ -1,0 +1,45 @@
+<nav class="navbar px-2 px-md-3">
+    <div class="row gx-3">
+        <div class="col-auto">
+            <button class="btn flat-btn px-0 d-md-none" (click)="toggleSideMenu()">
+                <i class="fa-solid fa-bars fs-5"></i>
+            </button>
+            <a class="navbar-brand py-0 me-0" href="#">Library Management</a>
+        </div>
+        <div class="col justify-content-between ps-0">
+            <span class=" d-none d-md-block d-xl-none"></span>
+            <button class="btn flat-btn px-0 d-none d-xl-block" (click)="toggleSideMenu()">
+                <i class="fa-solid fa-bars fs-5"></i>
+            </button>
+
+            <span class=" d-none d-xl-block"></span>
+        </div>
+        <div class="col-auto">
+
+            <!-- logged account info -->
+            <div class="dropdown ">
+                <div role="button" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="profile-img me-1">TU</div>
+                    <span class="fw-bold px-2 d-none d-xl-inline-block">Test User</span>
+                </div>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Setting</a></li>
+                    <li><a class="dropdown-item text-danger">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</nav>
+<div class="row gx-0 flex-grow-1 position-relative overflow-auto">
+    <div class="col-auto h-100">
+        <div class="h-100" id="sidemenu" (click)="toggleSideMenu()">
+            <side-menu />
+        </div>
+    </div>
+    <div class="col main-screen">
+        <router-outlet class="overflow-auto"></router-outlet>
+    </div>
+</div>
