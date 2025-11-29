@@ -33,6 +33,7 @@ export class DataService {
         catchError(error => {
           if (error.status === 401) {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('role');
             this.router.navigate(['/login']);
           }
           return throwError(() => error);
@@ -46,6 +47,7 @@ export class DataService {
         catchError(error => {
           if (error.status === 401) {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('role');
             this.router.navigate(['/login']);
           }
           return throwError(() => error);
@@ -59,6 +61,7 @@ export class DataService {
         catchError(error => {
           if (error.status === 401) {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('role');
             this.router.navigate(['/login']);
           }
           return throwError(() => error);
@@ -79,6 +82,7 @@ export class DataService {
         catchError(error => {
           if (error.status === 401) {
             localStorage.removeItem('authToken');
+            localStorage.removeItem('role');
             this.router.navigate(['/login']);
           }
           return throwError(() => error);

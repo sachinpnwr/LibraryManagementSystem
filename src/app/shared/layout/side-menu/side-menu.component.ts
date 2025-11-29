@@ -61,12 +61,12 @@ export class SideMenuComponent {
     return false;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.checkView();
 
-    var role = localStorage['selectedRole'];
+    var role = localStorage['role'];
 
-    if (role == 'admin') {
+    if (role == 'Admin') {
       this.menuList.set([
         {
           "id": 0,
@@ -78,9 +78,25 @@ export class SideMenuComponent {
         },
         {
           "id": 0,
+          "title": "Loans",
+          "icon": "fa-solid fa-book-open",
+          "pageUrl": "/loans",
+          "isSelected": false,
+          "items": []
+        },
+        {
+          "id": 0,
           "title": "Users",
           "icon": "fa-solid fa-user",
           "pageUrl": "/users",
+          "isSelected": false,
+          "items": []
+        },
+        {
+          "id": 0,
+          "title": "Admins",
+          "icon": "fa-solid fa-user-shield",
+          "pageUrl": "/admins",
           "isSelected": false,
           "items": []
         },
@@ -101,22 +117,6 @@ export class SideMenuComponent {
           "title": "Dashboard",
           "icon": "fa-solid fa-chart-line",
           "pageUrl": "/dashboard",
-          "isSelected": false,
-          "items": []
-        },
-        {
-          "id": 0,
-          "title": "Users",
-          "icon": "fa-solid fa-user",
-          "pageUrl": "/users",
-          "isSelected": false,
-          "items": []
-        },
-        {
-          "id": 0,
-          "title": "Books",
-          "icon": "fa-solid fa-book",
-          "pageUrl": "/books",
           "isSelected": false,
           "items": []
         },

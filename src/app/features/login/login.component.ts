@@ -26,6 +26,7 @@ export class LoginComponent {
         next: (response: any) => {
           if (response.token) {
             localStorage.setItem('authToken', response.token);
+            localStorage.setItem('role', response.role);
           }
           this.router.navigate(['/dashboard']);
         },

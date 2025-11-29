@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BooksService } from '@service/booksService';
@@ -6,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-books-list.component',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DatePipe],
   templateUrl: './books-list.component.html',
   styleUrl: './books-list.component.scss',
 })
@@ -14,7 +15,7 @@ export class BooksListComponent extends SharedComponenet {
   private booksService = inject(BooksService);
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
-
+  selectedBook: any = signal(null);
   dataList: any = signal([]);
   bookForm: FormGroup = this.fb.group({
     id: [null],
@@ -36,7 +37,7 @@ export class BooksListComponent extends SharedComponenet {
     })
     this.showModal('addEditBookModal').show();
   }
-
+  
   onAddBook() {
     if (this.bookForm.valid) {
       this.booksService.addBook({ ...this.bookForm.value, id: 0, availableCopies: this.bookForm.get('totalCopies')?.value }).subscribe((s: any) => {
@@ -48,7 +49,7 @@ export class BooksListComponent extends SharedComponenet {
       })
     }
   }
-
+  
   onUpdateBook() {
     if (this.bookForm.valid) {
       const adjustedAvailableCopies = this.bookForm.get('totalCopies')?.value - this.bookForm.get('prevCopies')?.value + this.bookForm.get('availableCopies')?.value;
@@ -59,11 +60,15 @@ export class BooksListComponent extends SharedComponenet {
       })
     }
   }
-
-
+  
+  
   onView(data: any) {
+    this.selectedBook.set(null);
     this.booksService.getBookInfo(data.id).subscribe((s:any)=>{
-      console.log(s);
+      this.selectedBook.set(s);
+      setTimeout(()=>{
+        this.showModal('viewBookModal').show();
+      }, 100)
     })
   }
 

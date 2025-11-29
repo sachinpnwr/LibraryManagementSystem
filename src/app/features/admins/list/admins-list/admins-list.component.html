@@ -1,0 +1,111 @@
+<div class="content-screen">
+    <div class="row aligned-row">
+        <div class="col">
+            <h4 class="mb-0">Admins</h4>
+        </div>
+        <div class="col-auto">
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table table-hover has-action">
+            <thead>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(i of dataList(); track i; let idx = $index){
+                <tr>
+                    <td>#{{idx + 1}}</td>
+                    <td>
+                        <div class="d-flex gap-2 align-items-center">
+                            <span class="profile-img profile-img-sm">
+                                {{getInitials(i.fullName)}}
+                            </span>
+                            {{i.fullName}}
+                        </div>
+                    </td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.role}}</td>
+                    <td>
+                        <div class="btns-wrapper">
+                            <button class="btn btn-sm btn-outline-primary" (click)="onEdit(i)">
+                                <i class="fa-solid fa-pencil"></i>Edit
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="updateUserModalLabel">Update Admin Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form [formGroup]="userForm" novalidate>
+                <div class="modal-body">
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" formControlName="fullName"
+                            [class.is-invalid]="fullName?.invalid && fullName?.touched">
+                        @if(fullName?.touched && fullName?.errors?.['required']) {
+                        <div class="invalid-feedback">Full name is required.</div>
+                        }
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" formControlName="email"
+                            [class.is-invalid]="email?.invalid && email?.touched">
+                        @if(email?.touched && email?.errors?.['required']) {
+                        <div class="invalid-feedback">Email is required.</div>
+                        }
+                        @if(email?.touched && email?.errors?.['email']) {
+                        <div class="invalid-feedback">Enter a valid email.</div>
+                        }
+                    </div>
+
+                    <!-- Role -->
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select id="role" class="form-control" formControlName="role"
+                            [class.is-invalid]="role?.invalid && role?.touched">
+                            <option value="">Select Role</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Student">Student</option>
+                        </select>
+
+                        @if(role?.touched && role?.errors?.['required']) {
+                        <div class="invalid-feedback">Role is required.</div>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    @if(userForm.get('id')?.value) {
+                    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid"
+                        (click)="onUpdateUser()">
+                        Update Info
+                    </button>
+                    }
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

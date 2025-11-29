@@ -7,11 +7,15 @@ import { Subject } from 'rxjs';
 })
 export class UsersService {
     private dataService = inject(DataService);
-    addEditBook : any = new Subject();
 
     getAllUsers() {
         this.dataService.set("/api/Users");
         return this.dataService.get();
+    }
+
+    updateUser(data: any) {
+        this.dataService.set(`/api/Users/${data.id}`);
+        return this.dataService.put(data);
     }
 
     getAccountInfo() {

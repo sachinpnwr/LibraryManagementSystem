@@ -12,7 +12,7 @@ nav.navbar {
 }
 
 .navbar-brand {
-    font-weight: 700;
+    font-weight: 500;
     color: var(--gray-100);
 }
 
@@ -44,18 +44,6 @@ nav.navbar {
     .navbar>.row .col-auto:has(> .navbar-brand) {
         width: var(--side-menu-width);
     }
-}
-
-.profile-img {
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: var(--primary-400);
-    width: 2.25rem;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
 }
 
 .btn {
@@ -107,11 +95,11 @@ nav.navbar {
         gap: 0.375rem;
     }
 
-    .profile-img{
-        margin-right: 0 !important;
-        width: 1.75rem;
-        font-size: 0.75rem;
-    }
+    // .profile-img{
+    //     margin-right: 0 !important;
+    //     width: 1.75rem;
+    //     font-size: 0.75rem;
+    // }
 
     .dropdown-btn{
         padding-left: 0;

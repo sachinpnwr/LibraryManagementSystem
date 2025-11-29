@@ -18,7 +18,8 @@
                     <th>Author</th>
                     <th>ISBN</th>
                     <th class="text-center">Total Copies</th>
-                    <th class="text-center">Available Copies</th>
+                    <th class="text-center">Copies Available</th>
+                    <th class="text-center">Copies Issued</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{i.isbn}}</td>
                     <td class="text-center">{{i.totalCopies}}</td>
                     <td class="text-center">{{i.availableCopies}}</td>
+                    <td class="text-center">{{i.totalCopies - i.availableCopies}}</td>
                     <td>
                         <span class="badge" [class.text-bg-danger]="i.availableCopies < 1"
                             [class.text-bg-success]="i.availableCopies >= 1">
@@ -128,6 +130,78 @@
                     }
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- VIEW BOOK MODAL -->
+<div class="modal fade" id="viewBookModal" tabindex="-1" aria-labelledby="viewBookLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="viewBookLabel">{{ selectedBook()?.title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- BOOK DETAILS -->
+                <div class="mb-3">
+                    <p><strong>Author:</strong> {{ selectedBook()?.author }}</p>
+                    <p><strong>ISBN:</strong> {{ selectedBook()?.isbn }}</p>
+                    <p><strong>Total Copies:</strong> {{ selectedBook()?.totalCopies }}</p>
+                    <p><strong>Available Copies:</strong> {{ selectedBook()?.availableCopies }}</p>
+                </div>
+
+                <hr>
+
+                <!-- LOANS TABLE -->
+                <h5 class="fw-bold mb-3">Loan Transactions</h5>
+
+                <div class="table-wrapper" style="    height: max-content;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Member</th>
+                                <th>Issued At</th>
+                                <th>Due At</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @for (loan of selectedBook()?.loans; track loan.id) {
+
+                            <tr>
+                                <td>{{ loan.memberName }}</td>
+
+                                <td>{{ loan.issuedAt | date:'medium' }}</td>
+                                <td>{{ loan.dueAt | date:'mediumDate' }}</td>
+
+                                <td>
+                                    @if (loan.isReturned) {
+                                    <span class="badge bg-success">Returned</span>
+                                    } @else {
+                                    <span class="badge bg-warning text-white">Pending Return</span>
+                                    }
+                                </td>
+                            </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+
         </div>
     </div>
 </div>

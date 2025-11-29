@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { SideMenuComponent } from '../../../shared/layout/side-menu/side-menu.component';
 import { UsersService } from '@service/usersService';
 
@@ -11,12 +11,10 @@ import { UsersService } from '@service/usersService';
 })
 export class AdminLayoutComponent {
   isSidebarCollapsed: boolean = false;
-  accountInfo: any = {
-    fullName: null,
-    role: null
-  }
+  accountInfo: any = signal([]);
   loggedUserName: string | null = null;
   protected usersService = inject(UsersService);
+  protected router = inject(Router);
 
   toggleSideMenu() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
@@ -35,11 +33,19 @@ export class AdminLayoutComponent {
     return first + last;
   }
 
-  ngOnInit() {
+  onLogout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  ngAfterViewInit() {
     this.usersService.getAccountInfo().subscribe((s: any) => {
-      console.log(s)
-      this.accountInfo.fullName = s.fullName;
-      this.accountInfo.role = s.role;
+      const data = {
+        fullName: s.fullName,
+        role: s.role,
+      }
+      this.accountInfo.set(data);
     })
   }
 }

@@ -19,15 +19,15 @@
             <!-- logged account info -->
             <div class="dropdown ">
                 <div role="button" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="profile-img me-1">{{getInitials(accountInfo.fullName)}}</div>
+                    <div class="profile-img me-1">{{getInitials(accountInfo().fullName)}}</div>
                     <div class="d-flex flex-column ps-2" >
-                        <span class="fw-bold">{{accountInfo.fullName}}</span>
-                        <span class="role">{{accountInfo.role}}</span>
+                        <span class="fw-semibold">{{accountInfo().fullName}}</span>
+                        <span class="role">{{accountInfo().role}}</span>
                     </div>
                 </div>
 
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item text-danger fw-semibold"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
+                    <li><a class="dropdown-item text-danger fw-semibold" (click)="onLogout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a></li>
                 </ul>
             </div>
         </div>

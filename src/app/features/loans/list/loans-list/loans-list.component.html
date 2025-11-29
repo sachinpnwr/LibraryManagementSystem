@@ -1,0 +1,126 @@
+<div class="content-screen">
+    <div class="row aligned-row">
+        <div class="col d-flex align-items-center gap-2">
+            <h4 class="mb-0">Loans</h4>
+            @if(getPendingLoanCount > 0){
+                <span class="badge text-bg-warning text-white">Pending Loan : {{getPendingLoanCount}}</span>
+            }
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" (click)="openIssueBookPopup()">Issue Book</button>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table class="table table-hover has-action">
+            <thead>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Book Name</th>
+                    <th>Issued To</th>
+                    <th>Contact Info</th>
+                    <th>Issued At</th>
+                    <th>Due On</th>
+                    <th>Returned On</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(i of dataList(); track i.id; let idx = $index){
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.bookName}}</td>
+                    <td>
+                        <div class="d-flex gap-2 align-items-center">
+                            <span class="profile-img profile-img-sm">
+                                {{getInitials(i.memberName)}}
+                            </span>
+                            {{i.memberName}}
+                        </div>
+                    </td>
+                    <td>{{i.memberEmail}}</td>
+                    <td>{{i.issuedAt | date : 'dd/MM/yyy hh:mm a'}}</td>
+                    <td>{{i.dueAt | date : 'dd/MM/yyy'}}</td>
+                    <td>{{i.returnedAt | date : 'dd/MM/yyy hh:mm a'}}</td>
+                    <td>
+                        <span class="badge" [ngClass]="i.isReturned ? 'text-bg-success' : 'text-bg-warning text-white'">
+                            {{i.isReturned ? 'Returned' : 'Pending Return'}}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="btns-wrapper">
+                            @if(!i.isReturned){
+                            <button class="btn btn-sm btn-outline-primary" (click)="markReturned(i)">
+                                <i class="fa-solid fa-right-left"></i>
+                                Mark Return
+                            </button>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="issueBookModal" tabindex="-1" aria-labelledby="issueBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="issueBookModalLabel">Issue Book</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="issueBookForm" (ngSubmit)="issueBook()" novalidate class="needs-validation">
+                <div class="modal-body">
+                    <!-- Member Select -->
+                    <div class="mb-3">
+                        <label class="form-label">Select Member</label>
+                        <ng-select formControlName="memberId" [items]="allUsers" bindValue="id"
+                            [searchFn]="searchPerson" [clearable]="true"
+                            [class.is-invalid]="issueBookForm.get('memberId')?.invalid && issueBookForm.get('memberId')?.touched">
+
+                            <ng-template ng-option-tmp let-item="item">
+                                {{ item.fullName }} | {{ item.email }}
+                            </ng-template>
+
+                            <ng-template ng-label-tmp let-item="item">
+                                {{ item.fullName }} | {{ item.email }}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+
+
+
+                    <!-- Book Select -->
+                    <div class="mb-3">
+
+                        <label class="form-label">Select Book</label>
+
+                        <ng-select formControlName="bookId" [items]="allBooks" bindValue="id" bindLabel="title"
+                            [clearable]="true" [searchFn]="searchBook"
+                            [class.is-invalid]="issueBookForm.get('bookId')?.invalid && issueBookForm.get('bookId')?.touched">
+                            <ng-template ng-option-tmp let-item="item">
+                                {{ item.title }} by {{item.author}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <!-- Due Date -->
+                    <div>
+                        <label class="form-label">Due Date</label>
+                        <input type="date" [min]="today" class="form-control" formControlName="dueAt"
+                            [class.is-invalid]="issueBookForm.get('dueAt')?.invalid && issueBookForm.get('dueAt')?.touched">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" [disabled]="issueBookForm.invalid">
+                        Issue Book
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
