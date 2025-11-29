@@ -9,6 +9,7 @@
             </button>
         </div>
     </div>
+    <app-search-box placeholder="Search by Title, Author or ISBN" (search)="onSearch($event)"></app-search-box>
     <div class="table-wrapper">
         <table class="table table-hover has-action">
             <thead>
@@ -25,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for(i of dataList(); track i; let idx = $index){
+                @for(i of filteredData(); track i; let idx = $index){
                 <tr>
                     <td>#{{idx + 1}}</td>
                     <td>{{i.title}}</td>

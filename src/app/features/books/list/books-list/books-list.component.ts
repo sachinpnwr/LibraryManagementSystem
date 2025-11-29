@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { BooksService } from '@service/booksService';
 import { SharedComponenet } from '@shared/infrastructure/sharedComponent';
 import { ToastrService } from 'ngx-toastr';
-
+import { SearchBoxComponent } from '@shared/components/search-box/search-box.component';
 @Component({
   selector: 'app-books-list.component',
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, SearchBoxComponent],
   templateUrl: './books-list.component.html',
   styleUrl: './books-list.component.scss',
 })
@@ -17,6 +17,7 @@ export class BooksListComponent extends SharedComponenet {
   private toastr = inject(ToastrService);
   selectedBook: any = signal(null);
   dataList: any = signal([]);
+  filteredData: any = signal([]);
   bookForm: FormGroup = this.fb.group({
     id: [null],
     title: ['', [Validators.required]],
@@ -119,9 +120,20 @@ export class BooksListComponent extends SharedComponenet {
     })
   }
 
+  onSearch(term: string) {
+    const obData = this.dataList().filter((x:any) =>
+      x.title.toLowerCase().includes(term) ||
+      x.author.toLowerCase().includes(term) ||
+      x.isbn.toLowerCase().includes(term)
+    );
+
+    this.filteredData.set(obData);
+  }
+
   dataBind() {
     this.booksService.getAll().subscribe((s: any) => {
       this.dataList.set(s);
+      this.filteredData.set(s);
     });
 
     this.booksService.addEditBook.subscribe((s: any) => {

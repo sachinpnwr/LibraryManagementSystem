@@ -10,6 +10,7 @@
             <button class="btn btn-primary" (click)="openIssueBookPopup()">Issue Book</button>
         </div>
     </div>
+    <app-search-box placeholder="Search by Loan ID, Book Name, Member Name or Email" (search)="onSearch($event)"></app-search-box>
     <div class="table-wrapper">
         <table class="table table-hover has-action">
             <thead>
@@ -26,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for(i of dataList(); track i.id; let idx = $index){
+                @for(i of filteredData(); track i.id; let idx = $index){
                 <tr>
                     <td>{{i.id}}</td>
                     <td>{{i.bookName}}</td>

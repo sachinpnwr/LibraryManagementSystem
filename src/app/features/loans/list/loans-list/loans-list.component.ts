@@ -5,12 +5,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BooksService } from '@service/booksService';
 import { LoanService } from '@service/loanService';
 import { UsersService } from '@service/usersService';
+import { SearchBoxComponent } from '@shared/components/search-box/search-box.component';
 import { SharedComponenet } from '@shared/infrastructure/sharedComponent';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-loans-list.component',
-  imports: [ReactiveFormsModule, DatePipe, NgClass, NgSelectModule, FormsModule],
+  imports: [ReactiveFormsModule, DatePipe, NgClass, NgSelectModule, FormsModule, SearchBoxComponent],
   templateUrl: './loans-list.component.html',
   styleUrl: './loans-list.component.scss',
 })
@@ -30,6 +31,7 @@ export class LoansListComponent extends SharedComponenet {
   });
 
   dataList: any = signal([]);
+  filteredData: any = signal([]);
   today = this.formatDate(new Date());
 
   formatDate(date: Date) {
@@ -66,6 +68,17 @@ export class LoansListComponent extends SharedComponenet {
       this.dataBind();
       this.toastr.success('Book marked as returned.')
     })
+  }
+
+  onSearch(term: string) {
+    const obData = this.dataList().filter((x: any) =>
+      // x.id.includes(term) ||
+      x.memberName.toLowerCase().includes(term) ||
+      x.bookName.toLowerCase().includes(term) ||
+      x.memberEmail.toLowerCase().includes(term)
+    );
+
+    this.filteredData.set(obData);
   }
 
   getDueDate() {
@@ -117,6 +130,11 @@ export class LoansListComponent extends SharedComponenet {
         ...active,
         ...returned
       ]);
+      this.filteredData.set([
+        ...active,
+        ...returned
+      ]);
+
 
     });
 
