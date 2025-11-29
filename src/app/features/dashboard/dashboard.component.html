@@ -1,77 +1,93 @@
 <div class="content-screen">
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
-    <p>dashboard.component works!</p>
+    <div class="row h-100">
+        <div class="col-12 col-lg-8">
+            <h4 class="mb-3">Welcome, {{accountInfo().fullName}}</h4>
+            @if(accountInfo().role === 'Admin'){
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="widget-card">
+                        <h5 class="fw-bold">Total Books</h5>
+                        <p class="mb-0">{{dashboardSummary().totalBooks}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="widget-card">
+                        <h5 class="fw-bold">Total Students</h5>
+                        <p class="mb-0">{{dashboardSummary().totalStudents}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="widget-card">
+                        <h5 class="fw-bold">Total Books Borrowed</h5>
+                        <p class="mb-0">{{dashboardSummary().totalBooksBorrowed}}</p>
+                    </div>
+                </div>
+            </div>
+            }
+            <div class="widget-card" style="min-height: 500px;">
+                <h6 class="fw-bold mb-3">My Pending Returns ({{this.pendingReturnsList().length}})</h6>
+                <div class="table-wrapper" style="height: max-content;">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Loan ID</th>
+                                <th>Book Name</th>
+                                <th>Issued At</th>
+                                <th>Due On</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(i of pendingReturnsList(); track i.id; let idx = $index){
+                            <tr>
+                                <td>{{i.id}}</td>
+                                <td>{{i.bookName}}</td>
+                                <td>{{i.issuedAt | date : 'dd/MM/yyy hh:mm a'}}</td>
+                                <td>{{i.dueAt | date : 'dd/MM/yyy'}}</td>
+                                <td>
+                                    <span class="badge"
+                                        [ngClass]="i.isReturned ? 'text-bg-success' : 'text-bg-warning text-white'">
+                                        {{i.isReturned ? 'Returned' : 'Pending Return'}}
+                                    </span>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="widget-card h-100 d-flex flex-column">
+                <h6 class="mb-3 fw-bold">All Books</h6>
+                <div class="mb-3">
+                    <app-search-box placeholder="Search by Title or Author" (search)="onSearchBook($event)"></app-search-box>
+                </div>
+                <div class="table-wrapper flex-grow-1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Book Title</th>
+                                <th>Book Author</th>
+                                <th>Availability Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(i of FilteredBooksDataList(); track i.id){
+                            <tr>
+                                <td>{{i.title}}</td>
+                                <td>{{i.author}}</td>
+                                <td>
+                                    <span class="badge" [class.text-bg-danger]="i.availableCopies < 1"
+                                        [class.text-bg-success]="i.availableCopies >= 1">
+                                        @if(i.availableCopies < 1){ Not Available }@else{ Available } </span>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

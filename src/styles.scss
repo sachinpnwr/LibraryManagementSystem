@@ -108,6 +108,12 @@ body {
     }
 }
 
+.widget-card{
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0px 15px 0px var(--bs-border-color);
+}
+
 .badge{
     --bs-badge-font-weight : 500;
 }
