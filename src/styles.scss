@@ -1,32 +1,42 @@
 :root,
 [data-bs-theme=light] {
-    --bs-primary: #07749c;
-    --bs-primary-rgb: 7, 116, 156;
+    --bs-primary: #5A4FCF;
+    --bs-primary-rgb: 90, 79, 207;
+
     --bs-warning: #AA710A;
     --bs-warning-rgb: 170, 113, 10;
+
     --bs-secondary: #898989;
     --bs-secondary-rgb: 137, 137, 137;
+
     --bs-success: #249000;
     --bs-success-rgb: 36, 144, 0;
+
     --bs-danger-rgb: 170, 0, 0;
-    --bs-primary-bg-subtle: #e6f1f5;
-    --bs-warning-bg-subtle: #FFEECF;
-    --bs-success-bg-subtle: #D7F7CC;
-    --bs-secondary-bg-subtle: #e7e7e7;
-    --bs-danger-bg-subtle: #FAE0E0;
+
+    --bs-primary-bg-subtle: #ECEBFF;
+
+    --primary-50: #ECEBFF;
+    --primary-100: #D3D0FF;
+    --primary-200: #B6B2FF;
+    --primary-300: #9993FF;
+    --primary-400: #7D75F5;
+    --primary-500: #5A4FCF;
+    --primary-600: #4A41B3;
+    --primary-700: #3A3396;
+    --primary-800: #2A257A;
+    --primary-900: #1B185E;
+
+    --bs-link-color: #5A4FCF;
+    --bs-link-hover-color: #3A3396;
+
+    --bs-table-header-bg: #ECEBFF;
     --bs-border-color: #d0d0d0;
-    --primary-50: #e6f1f5;
-    --primary-50-rgb: 230, 241, 245;
-    --primary-100: #b2d4e0;
-    --primary-100-rgb: 178, 212, 224;
-    --primary-200: #8dbdf1;
-    --primary-300: #59a2bd;
-    --primary-400: #3990b0;
-    --primary-500: #07749c;
-    --primary-600: #066a8e;
-    --primary-700: #05526f;
-    --primary-800: #044056;
-    --primary-900: #033142;
+
+    --right-panel-width: 300px;
+    --bs-border-radius: 0.5rem;
+
+    /* Other colors unchanged */
     --gray-50: #f5f5f5;
     --gray-500-rgb: 245, 245, 245;
     --gray-100: #fdfdfd;
@@ -39,6 +49,7 @@
     --gray-800: #7a7a7a;
     --gray-900: #515151;
     --gray-1000: #313131;
+
     --black-100: #d0d0d0;
     --black-100-rgb: 208, 208, 208;
     --black-200: #b0b0b0;
@@ -50,6 +61,7 @@
     --black-800: #0a0a0a;
     --black-900: #060606;
     --black-1000: #040404;
+
     --danger-50: #FFCCCC;
     --danger-50-rgb: 255, 204, 204;
     --danger-100: #FFAAAA;
@@ -61,15 +73,9 @@
     --danger-700: #800000;
     --danger-800: #550000;
     --danger-900: #330000;
-    --bs-link-color: #07749c;
-    --bs-link-color-rgb: 7, 116, 156;
-    --bs-link-hover-color: #05526f;
-    --bs-link-hover-color-rgb: 5, 82, 111;
-    --bs-table-header-bg: #E6F1F5;
-    --bs-table-border-color: #d0d0d0;
-    --right-panel-width: 300px;
-    --bs-border-radius: 0.5rem;
 }
+
+
 
 body {
     margin: 0;
@@ -78,6 +84,10 @@ body {
     height: 100dvh;
     overflow: auto;
     font-weight: 500;
+}
+
+.h-100dvh{
+    height: 100dvh;
 }
 
 .form-label {
