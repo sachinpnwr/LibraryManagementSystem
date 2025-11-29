@@ -37,7 +37,7 @@ export class BooksListComponent extends SharedComponenet {
     })
     this.showModal('addEditBookModal').show();
   }
-  
+
   onAddBook() {
     if (this.bookForm.valid) {
       this.booksService.addBook({ ...this.bookForm.value, id: 0, availableCopies: this.bookForm.get('totalCopies')?.value }).subscribe((s: any) => {
@@ -49,7 +49,7 @@ export class BooksListComponent extends SharedComponenet {
       })
     }
   }
-  
+
   onUpdateBook() {
     if (this.bookForm.valid) {
       const adjustedAvailableCopies = this.bookForm.get('totalCopies')?.value - this.bookForm.get('prevCopies')?.value + this.bookForm.get('availableCopies')?.value;
@@ -60,15 +60,38 @@ export class BooksListComponent extends SharedComponenet {
       })
     }
   }
-  
-  
+
+
   onView(data: any) {
     this.selectedBook.set(null);
-    this.booksService.getBookInfo(data.id).subscribe((s:any)=>{
-      this.selectedBook.set(s);
-      setTimeout(()=>{
+    this.booksService.getBookInfo(data.id).subscribe((s: any) => {
+      if (s.loans && s.loans.length > 0) {
+
+        const activeLoans = s.loans
+          .filter((x: any) => !x.isReturned)
+          .sort((a: any, b: any) =>
+            new Date(a.dueAt).getTime() - new Date(b.dueAt).getTime()
+          );
+
+        const returnedLoans = s.loans
+          .filter((x: any) => x.isReturned);
+
+        this.selectedBook.set({
+          ...s,
+          loans: [...activeLoans, ...returnedLoans]
+        });
+
+      } else {
+
+        this.selectedBook.set({
+          ...s,
+          loans: []
+        });
+
+      }
+      setTimeout(() => {
         this.showModal('viewBookModal').show();
-      }, 100)
+      })
     })
   }
 
@@ -82,7 +105,7 @@ export class BooksListComponent extends SharedComponenet {
       isbn: data.isbn,
       totalCopies: data.totalCopies,
       prevCopies: data.totalCopies,
-      availableCopies : data.availableCopies
+      availableCopies: data.availableCopies
     });
 
     this.showModal('addEditBookModal').show();
